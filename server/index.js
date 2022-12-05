@@ -14,6 +14,7 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 
+//para pegar os valores inseridos
 app.post("/register", (req,res)=>{
     const {name} = req.body;
     const {cost} = req.body;
@@ -26,11 +27,30 @@ app.post("/register", (req,res)=>{
     });
 });
 
-//método get, para pegar valores
+//para pegar valores inseridos e mostrar em tela
 //primeiro parâmetro é a url, e após, duas funções, o request e o result(req:todo valor que entra, res:todo valor que sai)
-// app.get('/',(req,res) => {
-//     res.send("hello word");
-// });
+app.get("/getCards",(req,res) => {
+    let SQL = "SELECT * FROM games";    
+
+    db.query(SQL, (err,result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    });
+});
+
+app.put("/edit", (req, res) =>{
+    const { id } = req.body;
+    const { name } = req.body;
+    const { cost } = req.body;
+    const { category } = req.body;
+
+    let SQL = "UPDATE games name = ?, cost = ?, category = ?, WHERE id = ?";
+
+    db.query(SQL, [name, cost, category, id], (err, result) =>{
+        if(err) console.log(err)
+        else res.send(result);
+    });
+});
 
 //abrir o browser na porta 3001, onde irá mostrar que está ou não puxando valores
 app.listen(3001, ()=>{
