@@ -51,6 +51,7 @@ export default function FormDialog(props) {
   };
 
   const handleDeleteGame = () => {
+    //envia o parâmetro do id dentro da url
     Axios.delete(`http://localhost:3001/delete/${editValues.id}`).then(() => {
       props.setListCard(
         props.listCard.filter((value) => {

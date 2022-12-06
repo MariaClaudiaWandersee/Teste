@@ -38,19 +38,31 @@ app.get("/getCards",(req,res) => {
     });
 });
 
+//para editar todos os campos do update
 app.put("/edit", (req, res) =>{
     const { id } = req.body;
     const { name } = req.body;
     const { cost } = req.body;
     const { category } = req.body;
 
-    let SQL = "UPDATE games name = ?, cost = ?, category = ?, WHERE id = ?";
+    let SQL = "UPDATE games name = ?, cost = ?, category = ? WHERE idgames = ?";
 
     db.query(SQL, [name, cost, category, id], (err, result) =>{
         if(err) console.log(err)
         else res.send(result);
     });
 });
+
+//para deletar pegando pelo id
+app.delete("/delete/:id", (req, res) =>{
+    const {id} = req.params;
+    letSQL = "DELET FROM games WHERE idgames = ?";
+    db.query(SQL,[id], (err, result ) =>{
+        if(err) console.log(err)
+        else res.send(result);
+    })
+
+})
 
 //abrir o browser na porta 3001, onde irá mostrar que está ou não puxando valores
 app.listen(3001, ()=>{

@@ -6,7 +6,7 @@ import Card from "./components/cards/cards";
 function App() {
   const [values,SetValues] = useState();
   const [listGames, setListGames] = useState();
-  //console.log(listGames);
+  console.log(listGames);
 
   const handlechangeValues = value =>{
     SetValues((prevValue) => ({
@@ -15,7 +15,7 @@ function App() {
     }));
   };
 
-  //para registrar dados
+  //para registrar dados após clicar no botão
   const handleClickButton = () =>{
     Axios.post("http://localhost:3001/register", {
       name: values.name,
