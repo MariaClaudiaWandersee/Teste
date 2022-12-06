@@ -27,8 +27,10 @@ export default function FormDialog(props) {
     props.setOpen(false);
   };
 
+  //constante para edição
   const handleEditGame = () => {
     Axios.put("http://localhost:3001/edit", {
+      //valores para poder editar
       id: editValues.id,
       name: editValues.name,
       cost: editValues.cost,
@@ -36,6 +38,7 @@ export default function FormDialog(props) {
     }).then(() => {
       props.setListCard(
         props.listCard.map((value) => {
+          //retorna os valores
           return value.id === editValues.id
             ? {
                 id: editValues.id,
@@ -50,6 +53,7 @@ export default function FormDialog(props) {
     handleClose();
   };
 
+  //para poder deletar
   const handleDeleteGame = () => {
     //envia o parâmetro do id dentro da url
     Axios.delete(`http://localhost:3001/delete/${editValues.id}`).then(() => {
@@ -69,6 +73,7 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
+        {/* modal para editar, vindo sempre com os campos preenchidos */}
         <DialogTitle id="form-dialog-title">Editar</DialogTitle>
         <DialogContent>
           <TextField 
